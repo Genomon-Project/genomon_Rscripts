@@ -25,5 +25,7 @@ Param <- getPMSignature(G, K = sigNum , BG = BG_prob, numInit = trialNum);
 
 Boot <- bootPMSignature(G, Param0 = Param, bootNum = 100, BG = BG_prob);
 
-save(list(Param, Boot), file=outputFile);
+#save(list(Param, Boot), file=outputFile);
+resultForSave <- list(Param, Boot);
+save(resultForSave, file=outputFile);
 

@@ -6,8 +6,7 @@ args <- commandArgs(trailingOnly = T)
 if (is.na(args[1])) {
     output = "output.json"
     container <- Param
-}
-else {
+} else {
     load(args[1])
     output = args[2]
     container <- resultForSave[[1]]
@@ -37,7 +36,7 @@ toList <- function(x) {
 
 sig_json <- list()
 sec_num = length(container@signatureFeatureDistribution[1,,])/6
-for (i in 1:container@signatureNum) {
+for (i in 1:(container@signatureNum-1)) {
     sig <- container@signatureFeatureDistribution[i,,]
     
     r1 <- toList(sig[1:sec_num])
@@ -50,4 +49,4 @@ for (i in 1:container@signatureNum) {
     sig_json[[i]] <- list(r1,r2,r3,r4,r5,r6)
 }
 
-write(toJSON(list( id = container@sampleList, signature = sig_json,, mutation = mutation)), output)
+write(toJSON(list( id = container@sampleList, signature = sig_json, mutation = mutation)), output)

@@ -6,8 +6,7 @@ args <- commandArgs(trailingOnly = T)
 if (is.na(args[1])) {
     output = "output.json"
     container <- Param
-}
-else {
+} else {
     load(args[1])
     output = args[2]
     container <- resultForSave[[1]]
@@ -30,7 +29,7 @@ for (i in 1:length(samples[,1])) {
 ref <- list()
 alt <- list()
 strand <- list()
-for (i in 1:container@signatureNum) {
+for (i in 1:(container@signatureNum-1)) {
     sig <- container@signatureFeatureDistribution[i,,]
     
     r1 <- c(cut_digits(sig[2,1]),cut_digits(sig[2,2]),cut_digits(sig[2,3]),cut_digits(sig[2,4]))
@@ -50,8 +49,7 @@ for (i in 1:container@signatureNum) {
     
     if (length(sig[,1]) == 6) {
         strand[[i]] <- c(cut_digits(sig[6,1]), cut_digits(sig[6,2]))
-    }
-    else {
+    } else {
         strand[[i]] <- list()
     }
 }
