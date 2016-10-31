@@ -15,7 +15,13 @@ if (is.na(args[1])) {
 cut_digits <- function(x, digits=3) {
     return (floor(x * 10^digits) /10^digits)
 }
+# id
+ids <- list()
+for (i in 1:length(container@sampleList)) {
+    ids[i] <- container@sampleList[i]
+}
 
+# mutation
 samples <- container@sampleSignatureDistribution
 mutation <- list()
 x <- 1
@@ -26,6 +32,7 @@ for (i in 1:length(samples[,1])) {
     }
 }
 
+# ref, alt, strand
 ref <- list()
 alt <- list()
 strand <- list()
@@ -54,4 +61,5 @@ for (i in 1:(container@signatureNum-1)) {
     }
 }
 
-write(toJSON(list( id = container@sampleList, ref = ref, alt = alt, strand = strand, mutation = mutation)), output)
+# write
+write(toJSON(list( id = ids, ref = ref, alt = alt, strand = strand, mutation = mutation)), output)

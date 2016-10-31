@@ -16,6 +16,13 @@ cut_digits <- function(x, digits=4) {
     return (floor(x * 10^digits) /10^digits)
 }
 
+# id
+ids <- list()
+for (i in 1:length(container@sampleList)) {
+    ids[i] <- container@sampleList[i]
+}
+
+# mutation
 samples <- container@sampleSignatureDistribution
 mutation <- list()
 x <- 1
@@ -26,6 +33,7 @@ for (i in 1:length(samples[,1])) {
     }
 }
 
+# signature
 toList <- function(x) {
     li <- c()
     for (i in 1:length(x)) {
@@ -49,4 +57,5 @@ for (i in 1:(container@signatureNum-1)) {
     sig_json[[i]] <- list(r1,r2,r3,r4,r5,r6)
 }
 
-write(toJSON(list( id = container@sampleList, signature = sig_json, mutation = mutation)), output)
+# write
+write(toJSON(list( id = ids, signature = sig_json, mutation = mutation)), output)

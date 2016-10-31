@@ -11,5 +11,4 @@ if (mode(org$Chr) == "numeric") {
     org$Chr <- paste("chr", org$Chr, sep="")
 }
 cut <- data.frame(id = org$id, Chr = org$Chr, Start = org$Start, Ref = org$Ref, Alt = org$Alt)
-#cut <- data.frame(id = org$id, Chr = org$Chr, Start = org$Start, End = org$End, Ref = org$Ref, Alt = org$Alt)
-write.table(cut, outputFile, quote=F, col.names=F, row.names=F, append=F, sep="\t")
+write.table(cut, outputFile, quote=F, col.names=F, row.names=F, append=T, sep="\t")
