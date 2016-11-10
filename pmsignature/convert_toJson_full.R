@@ -37,7 +37,8 @@ for (i in 1:length(samples[,1])) {
 toList <- function(x) {
     li <- c()
     for (i in 1:length(x)) {
-        li[i] <- cut_digits(x[i]*1000000)
+        #li[i] <- cut_digits(x[i]*1000000)
+        li[i] <- cut_digits(x[i])
     }
     return (li)
 }
