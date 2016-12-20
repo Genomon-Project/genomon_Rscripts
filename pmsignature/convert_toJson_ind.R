@@ -3,6 +3,8 @@
 library(rjson)
 
 args <- commandArgs(trailingOnly = T)
+mutation_count <- list()
+
 if (is.na(args[1])) {
     output = "output.json"
     container <- Param
@@ -10,6 +12,9 @@ if (is.na(args[1])) {
     load(args[1])
     output = args[2]
     container <- resultForSave[[1]]
+    if (length(resultForSave) == 3) {
+        mutation_count <- resultForSave[[3]];
+    }
 }
 
 cut_digits <- function(x, digits=3) {
@@ -62,4 +67,4 @@ for (i in 1:(container@signatureNum-1)) {
 }
 
 # write
-write(toJSON(list( id = ids, ref = ref, alt = alt, strand = strand, mutation = mutation)), output)
+write(toJSON(list( id = ids, ref = ref, alt = alt, strand = strand, mutation = mutation, mutation_count = mutation_count)), output)

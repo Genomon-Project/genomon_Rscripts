@@ -25,7 +25,11 @@ Param <- getPMSignature(G, K = sigNum , BG = BG_prob, numInit = trialNum);
 
 Boot <- bootPMSignature(G, Param0 = Param, bootNum = 100, BG = BG_prob);
 
-#save(list(Param, Boot), file=outputFile);
-resultForSave <- list(Param, Boot);
+mutation_count <- list()
+for (i in 1:length(G@sampleList)) {
+    mutation_count[i] <- length(which(G@mutationPosition==i));
+}
+
+resultForSave <- list(Param, Boot, mutation_count);
 save(resultForSave, file=outputFile);
 
