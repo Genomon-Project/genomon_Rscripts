@@ -1,4 +1,4 @@
-#$ R --vanilla --slave --args *.Rdata {output.json} < convert_toJson_pmsig.R
+#$ R --vanilla --slave --args *.Rdata {output.json} < convert_toJson_ind.R
 
 library(rjson)
 

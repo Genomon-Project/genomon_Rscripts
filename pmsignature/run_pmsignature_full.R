@@ -1,6 +1,6 @@
 #! /usr/bin/env R
 #
-# ${R_PATH}/R --vanilla --slave --args ${INPUTFILE} ${OUTPUTFILE} ${SIGNUM} ${TRDIRFLAG} ${TRIALNUM} < perform_signature.R
+# ${R_PATH}/R --vanilla --slave --args ${INPUTFILE} ${OUTPUTFILE} ${SIGNUM} ${TRDIRFLAG} ${TRIALNUM} ${BS_GENOME} ${TXDB_TRANSCRIPT} <  run_pmsignature_full.R
 #
 # ### params ###
 # ${INPUTFILE}  : the path to intput mutation file. (see https://github.com/friend1ws/pmsignature)
@@ -8,6 +8,8 @@
 # ${SIGNUM}     : the number of mutation signature. (3 ~ 6)
 # ${TRDIRFLAG}  : FALSE
 # ${TRIALNUM}   : 10
+# ${BS_GENOME}       : "BSgenome.Hsapiens.UCSC.hg19::BSgenome.Hsapiens.UCSC.hg19"
+# ${TXDB_TRANSCRIPT} : "TxDb.Hsapiens.UCSC.hg19.knownGene::TxDb.Hsapiens.UCSC.hg19.knownGene"
 #
 
 library(pmsignature);
@@ -18,7 +20,15 @@ sigNum <- as.numeric(commandArgs()[7]);
 trDirFlag <- as.logical(commandArgs()[8]);
 trialNum <- as.numeric(commandArgs()[9]);
 
-G <- readMPFile(inputFile, numBases = 3, type = "full", trDir = trDirFlag);
+bs_genome <- "BSgenome.Hsapiens.UCSC.hg19::BSgenome.Hsapiens.UCSC.hg19"
+txdb <- "TxDb.Hsapiens.UCSC.hg19.knownGene::TxDb.Hsapiens.UCSC.hg19.knownGene"
+
+if (length(commandArgs()) >= 11) {
+    bs_genome <- commandArgs()[10];
+    txdb <- commandArgs()[11];
+}
+
+G <- readMPFile(inputFile, numBases = 3, type = 'full', trDir = trDirFlag, bs_genome = eval(parse(text=bs_genome)), txdb_transcript = eval(parse(text=txdb)));
 
 BG_prob <- readBGFile(G);
 Param <- getPMSignature(G, K = sigNum, BG = BG_prob, numInit = trialNum);
