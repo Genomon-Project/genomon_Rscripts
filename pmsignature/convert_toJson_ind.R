@@ -41,7 +41,11 @@ for (i in 1:length(samples[,1])) {
 ref <- list()
 alt <- list()
 strand <- list()
-for (i in 1:(container@signatureNum-1)) {
+dist = 0
+if (container@isBackGround == T) {
+    dist = 1
+}
+for (i in 1:(container@signatureNum-dist)) {
     sig <- container@signatureFeatureDistribution[i,,]
     
     r1 <- c(cut_digits(sig[2,1]),cut_digits(sig[2,2]),cut_digits(sig[2,3]),cut_digits(sig[2,4]))

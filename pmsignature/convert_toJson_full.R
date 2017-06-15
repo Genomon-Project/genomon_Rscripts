@@ -50,7 +50,11 @@ toList <- function(x) {
 
 sig_json <- list()
 sec_num = length(container@signatureFeatureDistribution[1,,])/6
-for (i in 1:(container@signatureNum-1)) {
+dist = 0
+if (container@isBackGround == T) {
+    dist = 1
+}
+for (i in 1:(container@signatureNum-dist)) {
     sig <- container@signatureFeatureDistribution[i,,]
     
     r1 <- toList(sig[1:sec_num])
